@@ -1,28 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { AppBar, Toolbar, Typography } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import fetchModel from "../../lib/fetchModelData";
 import "./styles.css";
 import models from "../../modelData/models";
 
 function TopBar() {
   const location = useLocation();
-  const [title, setTitle] = useState("Photos Sharing");
-  const path = location.pathname;
+  const params = useParams();
+  let title = "Photo Sharing App";
 
-  useEffect(() => {
-    const parts = path.split("/");
-    if ((parts[1] === "users" || parts[1] === "photos") && parts[2]) {
-      const userId = parts[2];
-      const user = models.userModel(userId);
-      if (path.startsWith("/users/")) {
-        setTitle(user.first_name);
-      } else {
-        setTitle(`Photos of ${user.first_name}`);
-      }
-    } else {
-      setTitle("Photos Sharing");
-    }
-  }, [path]);
+  if (location.pathname.startsWith("/users/") && params.userId) {
+    const user = models.userModel(params.userId);
+    title = `${user.first_name} ${user.last_name}`;
+  } else if (location.pathname.startsWith("/photos/") && params.userId) {
+    const user = models.userModel(params.userId);
+    title = `Photos of ${user.first_name}`;
+  }
 
   return (
     <AppBar className="topbar-appBar" position="absolute">

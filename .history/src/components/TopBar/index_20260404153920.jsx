@@ -6,7 +6,7 @@ import models from "../../modelData/models";
 
 function TopBar() {
   const location = useLocation();
-  const [title, setTitle] = useState("Photos Sharing");
+  const [userName, setUserName] = useState("");
   const path = location.pathname;
 
   useEffect(() => {
@@ -14,24 +14,26 @@ function TopBar() {
     if ((parts[1] === "users" || parts[1] === "photos") && parts[2]) {
       const userId = parts[2];
       const user = models.userModel(userId);
-      if (path.startsWith("/users/")) {
-        setTitle(user.first_name);
-      } else {
-        setTitle(`Photos of ${user.first_name}`);
-      }
+      setUserName(user.first_name);
     } else {
-      setTitle("Photos Sharing");
+      setUserName("");
     }
   }, [path]);
+
+  const getContextText = () => {
+    if (path.startsWith("/users/")) return `${userName}`;
+    if (path.startsWith("/photos/")) return `Photos of ${userName}`;
+    return "";
+  };
 
   return (
     <AppBar className="topbar-appBar" position="absolute">
       <Toolbar>
         <Typography variant="h5" color="inherit" sx={{ flexGrow: 1 }}>
-          Nguyen Duc Trung
+          Tung
         </Typography>
         <Typography variant="h5" color="inherit">
-          {title}
+          {getContextText()}
         </Typography>
       </Toolbar>
     </AppBar>

@@ -17,12 +17,18 @@ function TopBar() {
       if (path.startsWith("/users/")) {
         setTitle(user.first_name);
       } else {
-        setTitle(`Photos of ${user.first_name}`);
+        setTitle(`Photos of ${userName}`);
       }
     } else {
       setTitle("Photos Sharing");
     }
   }, [path]);
+
+  const getContextText = () => {
+    if (path.startsWith("/users/")) return `${userName}`;
+    if (path.startsWith("/photos/")) return `Photos of ${userName}`;
+    return "";
+  };
 
   return (
     <AppBar className="topbar-appBar" position="absolute">
@@ -31,7 +37,7 @@ function TopBar() {
           Nguyen Duc Trung
         </Typography>
         <Typography variant="h5" color="inherit">
-          {title}
+          {getContextText()}
         </Typography>
       </Toolbar>
     </AppBar>

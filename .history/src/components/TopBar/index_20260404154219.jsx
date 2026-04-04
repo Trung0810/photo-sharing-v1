@@ -24,6 +24,12 @@ function TopBar() {
     }
   }, [path]);
 
+  const getContextText = () => {
+    if (path.startsWith("/users/")) return `${userName}`;
+    if (path.startsWith("/photos/")) return `Photos of ${userName}`;
+    return "";
+  };
+
   return (
     <AppBar className="topbar-appBar" position="absolute">
       <Toolbar>
@@ -31,7 +37,7 @@ function TopBar() {
           Nguyen Duc Trung
         </Typography>
         <Typography variant="h5" color="inherit">
-          {title}
+          {getContextText()}
         </Typography>
       </Toolbar>
     </AppBar>
