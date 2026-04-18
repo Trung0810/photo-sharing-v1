@@ -4,9 +4,18 @@
  * @param {string} url      The URL to issue the GET request.
  *
  */
-function fetchModel(url) {
-  const models = null;
-  return models;
+import axios from "axios";
+
+async function fetchModel(url) {
+  try {
+    const response = await axios.get(url);
+    console.log(">> check response", response);
+
+    const models = response.data.data;
+    return models;
+  } catch (error) {
+    throw error;
+  }
 }
 
 export default fetchModel;

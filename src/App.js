@@ -1,8 +1,8 @@
 import "./App.css";
 
 import React from "react";
-import { Grid, Typography, Paper } from "@mui/material";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { Grid, Paper } from "@mui/material";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import TopBar from "./components/TopBar";
 import UserDetail from "./components/UserDetail";
@@ -28,7 +28,6 @@ const App = (props) => {
               <Routes>
                 <Route path="/users/:userId" element={<UserDetail />} />
                 <Route path="/photos/:userId" element={<UserPhotos />} />
-                <Route path="/users" element={<UserList />} />
               </Routes>
             </Paper>
           </Grid>
